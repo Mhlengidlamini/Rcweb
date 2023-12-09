@@ -1,0 +1,17 @@
+﻿@model List<ApplicationUser>
+@{
+    ViewData["Title"] = "User List";
+   
+}
+
+<h2>User List</h2>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>
+            @user.UserName
+            <a href="@Url.Action("ManageRoles", new { userId = user.Id })">Manage Roles</a>
+        </li>
+    }
+</ul>

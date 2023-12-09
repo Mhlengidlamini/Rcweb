@@ -1,0 +1,55 @@
+﻿@model rc_tutors.Models.ViewModel.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <div class="rounded-circle" style="width: 200px; height: 200px; overflow: hidden; margin: 0 auto;">
+            <img src="~/css/images/whatsapp image 2023-03-16 at 16.59.36.jpeg" class="w-100" />
+          
+        </div>
+
+        <div>
+            <a class="nav-link  text-warning" asp-area="" asp-controller="Profile" asp-action="Edit">
+                Edit Profile
+            </a>
+        </div>
+           
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3 class="card-title">Student Information</h3>
+            <p class="card-text">Full Name:<br>@Model.FullName</p>
+            <p class="card-text">Email:<br>@Model.Email</p>
+            <p class="card-text">Phone:<br>@Model.Phone</p>
+            <p class="card-text">
+                Password:<br>
+                <span id="password-display">@Model.Password</span>
+                <button id="toggle-password" class="btn btn-link">Show Password</button>
+            </p>
+            <p class="card-text">
+                Tutor: <br>@(User.IsInRole("Tutor") ? "Verified" : "Not Verified")
+            </p>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("toggle-password").addEventListener("click", function () {
+            var passwordDisplay = document.getElementById("password-display");
+            if (passwordDisplay.style.display === "none") {
+                passwordDisplay.style.display = "inline";
+                document.getElementById("toggle-password").textContent = "Show Password";
+            } else {
+                passwordDisplay.style.display = "none";
+                document.getElementById("toggle-password").textContent = "Hide Password";
+            }
+        });
+
+    </script>
+}

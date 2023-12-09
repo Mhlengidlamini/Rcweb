@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - rc_tutors</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/rc_tutors.styles.css" asp-append-version="true" />
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+
+
+
+</head>
+<body>
+    
+     @if (User.IsInRole("SuperAdmin"))
+    {
+
+        <div id="mySidenav" class="sidenav">
+            <div id="logo"><img src="~/css/images/rc_logo.jpeg" /></div>
+            <div class="mt-5">
+                <a class="nav-link  text-white" asp-area="" asp-controller="Admin" asp-action="Index">
+                    <i class="fas fa-user"></i> Manage Roles
+                </a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Sessions" asp-action="Tutors">
+                    <i class="fas fa-calendar"></i> Schedule
+                </a>
+            
+            </div>
+        </div>
+      
+    
+    }
+
+     @if (!User.IsInRole("SuperAdmin"))
+    {
+        <div id="mySidenav" class="sidenav">
+            <div id="logo"><img src="~/css/images/rc_logo.jpeg" /></div>
+            <div class="mt-5">
+                <a class="nav-link  text-white" asp-area="" asp-controller="Profile" asp-action="Index">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <a class="nav-link text-white" asp-controller="Sessions" asp-action="Tutors">
+                    <i class="fas fa-users"></i> Tutors
+                </a>
+                <a class="nav-link  text-white" asp-area="" asp-controller="Message" asp-action="Index">
+                    <i class="fas fa-envelope"></i> Messages
+                </a>
+                <a class="nav-link   text-white">
+                    <i class="fas fa-globe"></i> Activity
+                </a>
+                <a class="nav-link text-white">
+                    <i class="fas fa-arrow-circle-left"></i> Sign Out
+                </a>
+            </div>
+        </div>
+        }
+
+        <div class="container">
+            <main role="main" class="pb-3 content">
+            @RenderBody()
+        </main>
+    </div>
+    
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

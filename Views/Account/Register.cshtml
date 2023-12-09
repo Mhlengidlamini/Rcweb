@@ -1,0 +1,94 @@
+﻿@model rc_tutors.Models.ViewModel.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/rc_tutors.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container-fluid h-custom mb-2">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="~/css/images/login_image.jpeg" alt="login_img" class="img-fluid" />
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form asp-controller="Account" asp-action="Register" method="post">
+                        <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                            <div>
+                                <img src="~/css/images/iie_logo.png" alt="iie-logo" class="img-fluid" />
+                            </div>
+                            <div class="ms-3">
+                                <img src="~/css/images/rc_logo.jpeg" alt="rc-logo" class="img-fluid" />
+                            </div>
+                        </div>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0">Register</p>
+                        </div>
+
+                        <!-- First Name input -->
+                        <div class="form-outline mb-1">
+                            <label asp-for="FirstName">First Name</label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Surname input -->
+                        <div class="form-outline mb-1">
+                            <label asp-for="LastName">Surname</label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-1">
+                            <label asp-for="Email">Email address</label>
+                            <input asp-for="Email" class="form-control" placeholder="use school email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-1">
+                            <label asp-for="Password">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Confirm Password input -->
+                        <div class="form-outline mb-1">
+                            <label asp-for="ConfirmPassword">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center text-lg-start mb-4">
+                            <button type="submit" class="btn btn-danger" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Register
+                            </button>
+                            <p class="small fw-bold  pt-1 mb-0">
+                                Already have an account? <a asp-action="Login" asp-controller="Account" class="link-danger no-dec">Login</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-danger">
+            <!-- Copyright -->
+            <div class="text-white mb-3 mb-md-0">
+                Copyright © 2020. All rights reserved.
+            </div>
+            <!-- Copyright -->
+        </div>
+    </section>
+</body>
+</html>
+

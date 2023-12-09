@@ -1,0 +1,21 @@
+﻿@model rc_tutors.Models.ViewModel.ManageRolesViewModel
+@{
+    ViewData["Title"] = "Manage User Roles";
+   
+}
+
+<h2>Manage Role for @Model.UserName</h2>
+
+<p>Current Role: @Model.CurrentRole</p>
+
+<form method="post">
+    <label for="SelectedRole">Select Role:</label>
+    <select name="SelectedRole">
+        @foreach (var role in Model.AllRoles)
+        {
+            <option value="@role" selected="@(Model.CurrentRole == role ? "selected" : "")">@role</option>
+        }
+    </select>
+
+    <button type="submit">Update Role</button>
+</form>

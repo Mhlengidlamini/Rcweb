@@ -1,0 +1,125 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .user-list {
+            width: 30%;
+            overflow-y: auto;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+        }
+
+        .chat-header {
+            background-color: #3b5998;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: #f0f2f5;
+        }
+
+            .chat-input input {
+                flex-grow: 1;
+                border: none;
+                padding: 10px;
+                border-radius: 20px;
+            }
+
+            .chat-input button {
+                background-color: #3b5998;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                margin-left: 10px;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- User list -->
+        <div class="user-list" id="userList">
+            <!-- Users will be added here dynamically -->
+        </div>
+
+        <!-- Chat box -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Chat</h1>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type a message..." />
+                <button id="chatButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // Disable send button until connection is established
+        document.getElementById("chatButton").disabled = true;
+
+        connection.on("ReceiveMessage", function (user, message) {
+            var msg = message.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+            var encodedMsg = user + " says " + msg;
+            var li = document.createElement("li");
+            li.textContent = encodedMsg;
+            document.getElementById("chatMessages").appendChild(li);
+        });
+
+        connection.on("UpdateUserList", function (users) {
+            var userList = document.getElementById("userList");
+            userList.innerHTML = '';
+            users.forEach(function (user) {
+                var li = document.createElement("li");
+                li.textContent = user;
+                userList.appendChild(li);
+            });
+        });
+
+        connection.start().then(function () {
+            document.getElementById("chatButton").disabled = false;
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("chatButton").addEventListener("click", function (event) {
+            var user = '@Model';
+            var message = document.getElementById("chatInput").value;
+            connection.invoke("SendMessage", user, message).catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
